@@ -54,6 +54,8 @@ class TextCreatorTestCase(unittest.TestCase):
 
     def test_info(self):
         self.assertEqual(spg_tc.text_status_info(),
-                         "Level = 1, complexity = 1, engine = FishText")
+                         "Level = 1, complexity = 1, engine = fishtext")
+
+
 if __name__ == '__main__':
     unittest.main()
