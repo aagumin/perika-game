@@ -1,6 +1,6 @@
 import unittest
 
-from src.speed_printing.text_creator import TextCreator
+from perika.engines.text_creator import TextCreator
 
 spg_tc = TextCreator()
 
@@ -47,10 +47,10 @@ class TextCreatorTestCase(unittest.TestCase):
         for a in range(-5, 0, -1):
             with self.subTest():
                 with self.assertRaises(AttributeError):
-                    example = TextCreator(level=a)
+                    TextCreator(level=a)
 
                 with self.assertRaises(AttributeError):
-                    example = TextCreator(complexity=a)
+                    TextCreator(complexity=a)
 
     def test_info(self):
         self.assertEqual(spg_tc.text_status_info(),

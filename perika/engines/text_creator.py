@@ -70,11 +70,3 @@ class TextCreator:
 
     def random_text(self) -> str:
         return self._get_text()
-
-
-if __name__ == "__main__":
-    gd = TextCreator()
-    #
-    x = gd.random_text()
-
-    print(x.endswith("</h1>"))
