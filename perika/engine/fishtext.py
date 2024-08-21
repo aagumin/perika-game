@@ -2,8 +2,10 @@ from typing import Callable, Dict
 
 import requests
 
+from perika.text import Text
 
-class TextCreator:
+
+class FishTextEngine:
     """
     https://fish-text.ru/api
 
@@ -60,13 +62,11 @@ class TextCreator:
 
             response = session.get(url=url['DOMAIN'], params=url['params'])
 
-            if response.status_code == 200:
-                return response.text
-            else:
-                raise ConnectionError(f"Неудачная попытка получение текста, код ошибки - {response.status_code}")
+            response.raise_for_status()
+            return response.text
 
     def text_status_info(self) -> str:
         return (f"Level = {self.level}, complexity = {self.complexity}, engine = {self.engine}")
 
-    def random_text(self) -> str:
-        return self._get_text()
+    def get_or_generate(self) -> Text:
+        return Text(self._get_text())

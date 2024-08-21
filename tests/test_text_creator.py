@@ -1,8 +1,8 @@
 import unittest
 
-from perika.engines.text_creator import TextCreator
+from perika.engine.fishtext import FishTextEngine
 
-spg_tc = TextCreator()
+spg_tc = FishTextEngine()
 
 
 class TextCreatorTestCase(unittest.TestCase):
@@ -19,7 +19,7 @@ class TextCreatorTestCase(unittest.TestCase):
             self.assertTrue(spg_tc.random_text().endswith("</h1>"))
 
     def test_check_html_format_for_high_complexity(self):
-        spg_tc_high = TextCreator(complexity=2)
+        spg_tc_high = FishTextEngine(complexity=2)
         with self.subTest():
             self.assertTrue(spg_tc_high.random_text().startswith("<p>"))
             self.assertTrue(spg_tc_high.random_text().endswith("</p>"))
@@ -29,28 +29,28 @@ class TextCreatorTestCase(unittest.TestCase):
         re_pattern = r'<h1>([\s\S]+?)<\/h1>'
         for n in range(1, 10):
             with self.subTest(i=n):
-                self.assertEqual(len(re.findall(re_pattern, TextCreator(level=n).random_text())), n)
+                self.assertEqual(len(re.findall(re_pattern, FishTextEngine(level=n).random_text())), n)
 
     def test_check_for_raise_unvalid_complexity(self):
         for x in range(4, 12, 2):
             with self.subTest():
                 with self.assertRaises(AttributeError):
-                    _ = TextCreator(complexity=x)
+                    _ = FishTextEngine(complexity=x)
 
     def test_check_type_complexity(self):
         for z in (1, 2, 3):
             with self.subTest():
                 with self.assertRaises(AttributeError):
-                    _ = TextCreator(complexity=str(z))
+                    _ = FishTextEngine(complexity=str(z))
 
     def test_zero_param_check(self):
         for a in range(-5, 0, -1):
             with self.subTest():
                 with self.assertRaises(AttributeError):
-                    TextCreator(level=a)
+                    FishTextEngine(level=a)
 
                 with self.assertRaises(AttributeError):
-                    TextCreator(complexity=a)
+                    FishTextEngine(complexity=a)
 
     def test_info(self):
         self.assertEqual(spg_tc.text_status_info(),
