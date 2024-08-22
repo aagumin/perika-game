@@ -1,21 +1,21 @@
-from typing import Iterable
+from typing import List
 
 from perika.task import Task
 
 
 class Level:
-    def __init__(self, tasks: Iterable[Task]):
+    def __init__(self, tasks: List[Task]):
         self.tasks = tasks
-        self.max: int = len(self.tasks)
+        self.index = 0
+        self.max_level_size = 10
 
     def __iter__(self):
-        self.a = 0
-
         return self
 
     def __next__(self):
-        x = self.tasks[self.a]
-        self.a += 1
-        if self.a == self.max:
+        if self.index < len(self.tasks) and self.index <= self.max_level_size:
+            item = self.tasks[self.index]
+            self.index += 1
+            return item
+        else:
             raise StopIteration
-        return x

@@ -1,8 +1,24 @@
-from typing import Callable, Dict
+from dataclasses import dataclass
+from enum import Enum
+from typing import Callable, Dict, Collection, Union
 
 import requests
 
-from perika.text import Text
+from perika.choises import LevelComplexity
+from perika.text import TaskText
+
+
+@dataclass
+class FishTextRequestParams:
+    format: str = "json"
+    number: int = 1
+    type: str = "title"
+
+
+@dataclass
+class FishTextRequest:
+    DOMAIN: str = "https://fish-text.ru/get"
+    params: FishTextRequestParams = FishTextRequestParams()
 
 
 class FishTextEngine:
@@ -11,62 +27,35 @@ class FishTextEngine:
 
     """
 
-    def __init__(self, complexity: int = 1, level: int = 1, engine: str = "FishText"):
+    def __init__(self, complexity: int = 1):
         """
         complexity := (title(1), sentence(2), paragraph(3))
-        engine := ("FishText", etc)
-        level := text len
         """
         self.complexity = complexity
-        self.level = str(level)
-        self.engine = engine.lower()
         if complexity not in (1, 2, 3):
-            raise AttributeError("Сложность текста - это три уровня. Укажите сложность из множества (1,2,3)")
-        if any([self.complexity, self.level]) <= 0:
-            raise AttributeError("Сложность текста и\или уровень не может быть меньше либо равен нулю")
+            raise AttributeError(
+                "Сложность текста - это три уровня. Укажите сложность из множества (1,2,3)"
+            )
 
+    def _fishtext_request_url_builder(self) -> FishTextRequest:
+        """ """
+        complexity = {1: "title", 2: "sentence", 3: "paragraph"}
 
-    def _fishtext_request_url_builder(self) -> Dict[str, str]:
-        """
-
-        """
-        complexity = {1: "title",
-                      2: "sentence",
-                      3: "paragraph"}
-
-        url_config = dict(
-            DOMAIN="https://fish-text.ru/get",
-            params={"format": "html",
-                    "number": self.level,
-                    "type": complexity[self.complexity]}
+        return FishTextRequest(
+            params=FishTextRequestParams(type=complexity[self.complexity])
         )
-
-        return url_config
-
-    def _other_request_builder_conf(self):
-        """
-        Для расширения
-        """
-        pass
-
-    def _verify_engine_builder(self) -> Callable:
-        if self.engine == "fishtext":
-            return self._fishtext_request_url_builder
-        else:
-            return self._other_request_builder_conf
 
     def _get_text(self) -> str:
         with requests.session() as session:
-            request_builder_conf = self._verify_engine_builder()
-            url = request_builder_conf()
+            prm = self._fishtext_request_url_builder()
 
-            response = session.get(url=url['DOMAIN'], params=url['params'])
+            response = session.get(url=prm.DOMAIN, params=prm.params.__dict__)
 
             response.raise_for_status()
-            return response.text
+            return response.json()["text"]
 
     def text_status_info(self) -> str:
-        return (f"Level = {self.level}, complexity = {self.complexity}, engine = {self.engine}")
+        return f"complexity = {self.complexity}"
 
-    def get_or_generate(self) -> Text:
-        return Text(self._get_text())
+    def get_or_generate(self) -> TaskText:
+        return TaskText(self._get_text())

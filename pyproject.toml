@@ -24,6 +24,8 @@ dev-dependencies = [
     "mypy>=1.11.1",
     "gitlint>=0.19.1",
     "git-cliff>=2.4.0",
+    "types-requests>=2.32.0.20240712",
+    "ruff>=0.6.2",
 ]
 
 [tool.hatch.metadata]
@@ -34,21 +36,10 @@ packages = ["perika"]
 
 [tool.ruff.lint]
 select =['ALL']
+#
+#[tool.mypy]
+## Selectively enable strictness options
 
-[tool.mypy]
-# Selectively enable strictness options
-warn_unused_configs = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-no_implicit_optional = true
-strict_equality = true
-strict_concatenate = true
-disallow_subclassing_any = true
-disallow_untyped_decorators = true
-disallow_any_generics = true
-warn_return_any = true
-disallow_untyped_calls = true
-disallow_incomplete_defs = true
 
 [tool.git-cliff.changelog]
 # template for the changelog footer
