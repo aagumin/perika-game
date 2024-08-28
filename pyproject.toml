@@ -30,6 +30,7 @@ dev-dependencies = [
     "git-cliff>=2.4.0",
     "types-requests>=2.32.0.20240712",
     "ruff>=0.6.2",
+    "pyright>=1.1.377",
 ]
 
 [tool.hatch.metadata]
@@ -38,12 +39,13 @@ allow-direct-references = true
 [tool.hatch.build.targets.wheel]
 packages = ["perika"]
 
+[tool.ruff]
+# Allow lines to be as long as 120.
+line-length = 120
+
 [tool.ruff.lint]
 select = ['ALL']
-
-#[tool.mypy]
-## Selectively enable strictness options
-
+ignore = ['D', 'FA100', 'UP006', 'UP035', 'PGH003']
 
 [tool.git-cliff.changelog]
 # template for the changelog footer

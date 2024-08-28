@@ -1,9 +1,8 @@
 import typer
-
 from rich import print
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich.prompt import Prompt, IntPrompt
+from rich.prompt import IntPrompt, Prompt
 
 from perika.clock import LevelTimer
 from perika.game.choises import LevelComplexity
@@ -12,10 +11,12 @@ from perika.game.rule import Game
 from perika.game.text import PlayerAnswer
 
 
-def start_game():
+def start_game() -> None:
     name = Prompt.ask(
-        prompt="Enter your name :waving_hand:", default="Guest", show_default=False
-    )  # TODO Logic. Verify user existing. Return user meta.
+        prompt="Enter your name :waving_hand:",
+        default="Guest",
+        show_default=False,
+    )
 
     print(f"Hello [green]{name}![/green]")
 
@@ -37,7 +38,7 @@ def start_game():
         show_choices=True,
     )
 
-    game_rule = Game(lvl_hard, lvl_size, player, engine_name)
+    game_rule = Game(lvl_hard, lvl_size, player, engine_name)  # type: ignore
 
     with Progress(
         SpinnerColumn(),
@@ -55,14 +56,14 @@ def start_game():
             f"Level size: [green]{lvl_size}[/green]\n "
             f"Text generating engine: [blue]{engine_name.capitalize()}[/blue]",
             title="Game level info",
-        )
+        ),
     )
 
     start_game = typer.confirm("Start the game?", default=True, show_default=True)
 
     if not start_game:
-        print("Bye-bye .. :(")
-        raise typer.Abort()
+        msg = "Bye-bye .. game cancelled :("
+        raise typer.Abort(msg)
 
     cnt = 1
     for task in game_level:
@@ -72,5 +73,3 @@ def start_game():
 
         print(timer.result(task.compare(answer)))
         cnt += 1
-
-

@@ -1,3 +1,2 @@
-
 class FakerEngine:
-    raise NotImplementedError()
+    raise NotImplementedError

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from enum import Enum, unique
-from typing import List
+
 
 @unique
 class LevelComplexity(Enum):
@@ -8,9 +10,9 @@ class LevelComplexity(Enum):
     hard = 3
 
     @classmethod
-    def list_keys(self) -> List[str]:
-        return [x.name for x in self]
+    def list_keys(cls) -> list[str]:
+        return [x.name for x in cls]
 
     @classmethod
-    def list_value(self) -> List[int]:
-        return [x.value for x in self]
+    def list_value(cls) -> list[int]:
+        return [x.value for x in cls]

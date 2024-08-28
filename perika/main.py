@@ -1,10 +1,10 @@
+import typer
 
 from perika.flow import start_game
 
-import typer
-
 app = typer.Typer()
 
-@app.command('start')
-def start():
+
+@app.command("start")
+def start() -> None:
     return start_game()
