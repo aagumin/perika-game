@@ -45,7 +45,7 @@ line-length = 120
 
 [tool.ruff.lint]
 select = ['ALL']
-ignore = ['D', 'FA100', 'UP006', 'UP035', 'PGH003']
+ignore = ['D', 'FA100', 'UP006', 'UP035', 'PGH003', 'COM812', 'ISC001']
 
 [tool.git-cliff.changelog]
 # template for the changelog footer
