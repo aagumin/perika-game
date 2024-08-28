@@ -1,7 +1,6 @@
 from enum import Enum, unique
 from typing import List
 
-
 @unique
 class LevelComplexity(Enum):
     easy = 1

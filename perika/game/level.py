@@ -1,6 +1,6 @@
 from typing import List
 
-from perika.task import Task
+from .task import Task
 
 
 class Level:

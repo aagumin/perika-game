@@ -1,13 +1,15 @@
 import typer
+
 from rich import print
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.prompt import Prompt, IntPrompt
 
-from perika.choises import LevelComplexity
-from perika.player import Player
-from perika.rule import Game
-from perika.text import PlayerAnswer
+from perika.clock import LevelTimer
+from perika.game.choises import LevelComplexity
+from perika.game.player import Player
+from perika.game.rule import Game
+from perika.game.text import PlayerAnswer
 
 
 def start_game():
@@ -57,6 +59,7 @@ def start_game():
     )
 
     start_game = typer.confirm("Start the game?", default=True, show_default=True)
+
     if not start_game:
         print("Bye-bye .. :(")
         raise typer.Abort()
@@ -64,7 +67,10 @@ def start_game():
     cnt = 1
     for task in game_level:
         print(Panel.fit(task(), title=f"Round {cnt}"))
-        answer = PlayerAnswer(Prompt.ask("result -> "))
-        print(task.compare(answer))
+        with LevelTimer() as timer:
+            answer = PlayerAnswer(Prompt.ask("[bold red] your prompt -> "))
+
+        print(timer.result(task.compare(answer)))
         cnt += 1
+
 

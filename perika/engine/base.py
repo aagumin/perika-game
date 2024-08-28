@@ -1,7 +1,6 @@
 from typing import Protocol, runtime_checkable
 
-from perika.choises import LevelComplexity
-from perika.text import TaskText
+from perika.game.text import TaskText
 
 
 @runtime_checkable

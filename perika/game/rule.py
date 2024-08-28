@@ -1,12 +1,10 @@
 from __future__ import annotations
 
-import time
-
 from perika.engine.base import TextEngine
-from perika.level import Level
-from perika.player import Player
-from perika.task import Task
-from perika.choises import LevelComplexity
+from perika.game.level import Level
+from perika.game.player import Player
+from perika.game.task import Task
+from perika.game.choises import LevelComplexity
 from perika.engine.fishtext import FishTextEngine
 
 

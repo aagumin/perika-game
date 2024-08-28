@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from perika.text import TaskText, PlayerAnswer
+from perika.game.text import TaskText, PlayerAnswer
 import difflib
 
 
@@ -13,10 +13,9 @@ class TaskResult:
     def __repr__(self):
         return (
             f"TaskResult \n"
-            f" equal >>> \n"
-            f"{self.equal}\n"
+            f" equal >>> {self.equal}\n"
             f" diff  >>> \n "
-            f"{self.diff})"
+            f"{self.diff}"
         )
 
 
