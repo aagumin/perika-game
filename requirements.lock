@@ -25,14 +25,14 @@ mdurl==0.1.2
 pygments==2.18.0
     # via rich
 requests==2.32.3
-    # via perika
+    # via perika-game
 rich==13.7.1
-    # via perika
+    # via perika-game
     # via typer
 shellingham==1.5.4
     # via typer
 typer==0.12.4
-    # via perika
+    # via perika-game
 typing-extensions==4.12.2
     # via typer
 urllib3==2.2.2
