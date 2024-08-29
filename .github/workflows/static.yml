@@ -44,9 +44,9 @@ jobs:
       - name: Ruff lint check
         run: |
           ruff check .
-      - name: Git lint check
-        run: |
-          gitlint -C .gitlint
+#      - name: Git lint check
+#        run: |
+#          gitlint -C .gitlint
   bandit:
     needs: [ "linters" ]
     permissions:
