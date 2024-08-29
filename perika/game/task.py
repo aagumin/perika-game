@@ -6,7 +6,7 @@ from perika.game.text import PlayerAnswer, TaskText
 
 
 @dataclass
-class TaskResult:
+class CompareResult:
     equal: bool
     diff: Optional[str]
 
@@ -21,11 +21,11 @@ class Task:
     def __call__(self) -> str:
         return self.text()
 
-    def compare(self, player_input: PlayerAnswer) -> TaskResult:
+    def compare(self, player_input: PlayerAnswer) -> CompareResult:
         eq = self.text() == player_input()
         diff = "Success"
         if not eq:
             differ = difflib.Differ()
             raw_diff = list(differ.compare([self.text()], [player_input()]))
             diff = "\n".join(raw_diff)
-        return TaskResult(equal=eq, diff=diff)
+        return CompareResult(equal=eq, diff=diff)

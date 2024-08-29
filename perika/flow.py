@@ -4,10 +4,9 @@ from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.prompt import IntPrompt, Prompt
 
-from perika.clock import LevelTimer
 from perika.game.choises import LevelComplexity
 from perika.game.player import Player
-from perika.game.rule import Game
+from perika.game.game import Game
 from perika.game.text import PlayerAnswer
 
 
@@ -68,8 +67,8 @@ def start_game() -> None:
     cnt = 1
     for task in game_level:
         print(Panel.fit(task(), title=f"Round {cnt}"))
-        with LevelTimer() as timer:
+        with game_rule.tracking_progress() as progress:
             answer = PlayerAnswer(Prompt.ask("[bold red] your prompt -> "))
 
-        print(timer.result(task.compare(answer)))
+        print(progress.result(task.compare(answer)))
         cnt += 1
