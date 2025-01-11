@@ -2,61 +2,32 @@ import typer
 from rich import print
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich.prompt import IntPrompt, Prompt
+from rich.prompt import Prompt
 
-from perika.game.choises import LevelComplexity
-from perika.game.player import Player
-from perika.game.game import Game
-from perika.game.text import PlayerAnswer
+from .game.game import Game
+from .game.setup import GameSetup
+from .game.text import PlayerAnswer
 
 
 def start_game() -> None:
-    name = Prompt.ask(
-        prompt="Enter your name :waving_hand:",
-        default="Guest",
-        show_default=False,
-    )
+    game_setup = GameSetup()
 
-    print(f"Hello [green]{name}![/green]")
+    game_setup.request_user_name()
+    game_setup.request_game_hard()
+    game_setup.request_level()
+    game_setup.request_game_engine()
 
-    lvl_hard = Prompt.ask(
-        prompt="Enter level hard :flexed_biceps:",
-        choices=LevelComplexity.list_keys(),
-        default=LevelComplexity.easy.name,
-        show_choices=True,
-    )
-
-    lvl_size = IntPrompt.ask("Enter level size (int, max: 10) :sunglasses:", default=1, show_default=False)
-
-    player = Player(name)
-
-    engine_name = Prompt.ask(
-        "Set text engine :brain:",
-        default="fishtext",
-        choices=["fishtext", "gigachat"],
-        show_choices=True,
-    )
-
-    game_rule = Game(lvl_hard, lvl_size, player, engine_name)  # type: ignore
+    game_rule = Game(game_setup=game_setup)  # type: ignore
 
     with Progress(
-        SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
-        transient=True,
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            transient=True,
     ) as progress:
         progress.add_task(description="Generate level...", total=None)
         game_level = game_rule.generate_level()
 
-    print(
-        Panel(
-            f"Game information! :flag_in_hole: \n\n "
-            f"Player name: [red]{name}[/red] \n "
-            f"Level hard: [yellow]{lvl_hard.capitalize()} [/yellow]\n "
-            f"Level size: [green]{lvl_size}[/green]\n "
-            f"Text generating engine: [blue]{engine_name.capitalize()}[/blue]",
-            title="Game level info",
-        ),
-    )
+    print(game_rule.start_banner())
 
     start_game = typer.confirm("Start the game?", default=True, show_default=True)
 

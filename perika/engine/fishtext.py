@@ -20,10 +20,11 @@ class FishTextRequest:
 
 class FishTextEngine:
     """https://fish-text.ru/api"""
-
+    name = "FishText"
     def __init__(self, complexity: int = 1) -> None:
         """Complexity := (title(1), sentence(2), paragraph(3))"""
         self.complexity = complexity
+
         if complexity not in (1, 2, 3):
             msg = "Сложность текста - это три уровня. Укажите сложность из множества (1,2,3)"
             raise AttributeError(msg)

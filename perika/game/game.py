@@ -6,7 +6,7 @@ from functools import lru_cache
 from typing import TYPE_CHECKING
 
 from typing_extensions import Self
-
+from rich.panel import Panel
 from perika.engine.fishtext import FishTextEngine
 from perika.game.choises import LevelComplexity
 from perika.game.level import Level
@@ -16,20 +16,19 @@ from perika.game.task import Task, CompareResult
 if TYPE_CHECKING:
     from perika.engine.base import TextEngine
     from perika.game.player import Player
+    from perika.game.setup import GameSetup
 
 
 class Game:
     def __init__(
         self,
-        level_hard: LevelComplexity,
-        level_size: int,
-        player: Player,
-        engine_name: str,
+        game_setup: GameSetup,
     ) -> None:
-        self.level_hard = level_hard
-        self.level_size = level_size
-        self.player = player
-        self.engine = self._resolve_engine(engine_name)
+        self.level_hard: str = game_setup.lvl_hard
+        self.level_size: int = game_setup.lvl_size
+        self.game_setup: GameSetup = game_setup
+        self.player = self.game_setup.player_verification()
+        self.engine = self._resolve_engine(self.game_setup.engine_name)
 
     def _resolve_engine(self, eng: str) -> TextEngine:
         if eng == "fishtext":
@@ -44,6 +43,15 @@ class Game:
     def tracking_progress(self) -> GameProgress:
         return GameProgress(self)
 
+    def start_banner(self):
+        return Panel(
+            f"Game information! :flag_in_hole: \n\n "
+            f"Player name: [red]{self.player.name}[/red] \n "
+            f"Level hard: [yellow]{self.level_hard.capitalize()} [/yellow]\n "
+            f"Level size: [green]{self.level_size}[/green]\n "
+            f"Text generating engine: [blue]{self.engine.name.capitalize()}[/blue]",
+            title="Game level info",
+        )
 
 class GameProgress:
     def __init__(self, game_rule: Game, time_result_pattern: str = "{:.2f}") -> None:
