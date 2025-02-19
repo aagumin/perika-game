@@ -1,6 +1,6 @@
 import typer
 
-from perika.flow import start_game
+from perika.ui.cli.flow import start_game
 
 app = typer.Typer()
 

@@ -1,0 +1,6 @@
+# Allow lines to be as long as 120.
+line-length = 120
+
+[lint]
+select = ['ALL']
+ignore = ['D', 'FA100', 'UP006', 'UP035', 'PGH003', 'COM812', 'ISC001']

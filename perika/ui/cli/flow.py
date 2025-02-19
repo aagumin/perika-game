@@ -4,9 +4,10 @@ from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.prompt import Prompt
 
-from .game.game import Game
-from .game.setup import GameSetup
-from .game.text import PlayerAnswer
+from perika.game.text import PlayerAnswer
+
+from .game import CliGame
+from .setup import GameSetup
 
 
 def start_game() -> None:
@@ -17,12 +18,12 @@ def start_game() -> None:
     game_setup.request_level()
     game_setup.request_game_engine()
 
-    game_rule = Game(game_setup=game_setup)  # type: ignore
+    game_rule = CliGame(game_setup=game_setup)  # type: ignore
 
     with Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            transient=True,
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        transient=True,
     ) as progress:
         progress.add_task(description="Generate level...", total=None)
         game_level = game_rule.generate_level()
