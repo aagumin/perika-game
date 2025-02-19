@@ -3,16 +3,16 @@ from typing import TYPE_CHECKING
 from rich.panel import Panel
 
 from perika.engine.base import TextEngine
-from perika.engine.fishtext import FishTextEngine
-from perika.game import GameProgress
-from perika.game.level import Level
-from perika.game.setup import GameSetup
-from perika.game.task import Task
-from perika.game.choises import LevelComplexity
+from perika.engine import FishTextEngine
+from perika.core.game import GameProgress
+from perika.core.game.level import Level
+from perika.core.game.setup import GameSetup
+from perika.core.game import Task
+from perika.core.game.choises import LevelComplexity
 
 if TYPE_CHECKING:
     from perika.engine.base import TextEngine
-    from perika.game.setup import GameSetup
+    from perika.core.game.setup import GameSetup
 
 
 class CliGame:

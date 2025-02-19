@@ -1,7 +1,7 @@
 from functools import lru_cache
-from typing import Iterable, Protocol
+from typing import Iterable
 
-from perika.game.player import Player
+from perika.core.game.player import Player
 
 
 class Score:

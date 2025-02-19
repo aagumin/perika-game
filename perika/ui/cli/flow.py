@@ -4,7 +4,7 @@ from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.prompt import Prompt
 
-from perika.game.text import PlayerAnswer
+from perika.core.game import PlayerAnswer
 
 from .game import CliGame
 from .setup import GameSetup

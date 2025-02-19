@@ -2,7 +2,7 @@ import difflib
 from dataclasses import dataclass
 from typing import Optional
 
-from perika.game.text import PlayerAnswer, TaskText
+from perika.core.game.text import PlayerAnswer, TaskText
 
 
 @dataclass

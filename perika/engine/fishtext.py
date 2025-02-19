@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 
 import requests
 
-from perika.game.text import TaskText
+from perika.core.game.text import TaskText
 
 
 @dataclass

@@ -1,20 +1,16 @@
 from __future__ import annotations
 
 import time
-from dataclasses import dataclass
-from functools import lru_cache
-from typing import TYPE_CHECKING, Protocol, Union
+from typing import Protocol, Union
 
 from rich.panel import Panel
 from typing_extensions import Self
 
 from perika.engine.base import TextEngine
-from perika.engine.fishtext import FishTextEngine
-from perika.game.choises import LevelComplexity
-from perika.game.level import Level
-from perika.game.score import Score
-from perika.game.setup import GameSetup
-from perika.game.task import CompareResult, Task
+from perika.core.game.level import Level
+from perika.core.game.score import Score
+from perika.core.game.setup import GameSetup
+from perika.core.game.task import CompareResult
 
 
 class Game(Protocol):

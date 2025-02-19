@@ -1,7 +1,7 @@
 from rich.prompt import IntPrompt, Prompt
 
-from perika.game.choises import LevelComplexity
-from perika.game.player import Player
+from perika.core.game.choises import LevelComplexity
+from perika.core.game.player import Player
 
 
 def hellower_decorator(func):

@@ -1,7 +1,7 @@
 from typing import Protocol
 
-from perika.game.choises import LevelComplexity
-from perika.game.player import Player
+from perika.core.game.choises import LevelComplexity
+from perika.core.game.player import Player
 
 
 def hellower_decorator(func):
@@ -37,5 +37,5 @@ class GameSetup(Protocol):
     def request_game_engine(self):
         raise NotImplementedError()
 
-    def player_verification(self):
-        return Player(self.user)
+    def player_verification(self) -> Player:
+        raise NotImplementedError()

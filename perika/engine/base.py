@@ -1,6 +1,6 @@
 from typing import Protocol, runtime_checkable
 
-from perika.game.text import TaskText
+from perika.core.game import TaskText
 
 
 @runtime_checkable
